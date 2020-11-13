@@ -14,7 +14,7 @@
     import {Component} from 'vue-property-decorator';
 
     @Component
-    export default class NumberPad extends Vue {
+    export default class Notes extends Vue {
         value = '';
     }
 </script>
