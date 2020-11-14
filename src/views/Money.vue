@@ -4,7 +4,7 @@
         <!--<Types :value="record.type" @update:value="onUpdateType"/>-->
         <!--传给子组件的value的值是record.type，子组件要改的也是record.type，直接value.sync-->
         <Types :value.sync="record.type"/>
-        <Notes @update:value="onUpdateNotes"/>
+        <Notes field-name="备注" placeholder="请在这里输入备注" @update:value="onUpdateNotes"/>
         <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     </Layout>
 </template>
