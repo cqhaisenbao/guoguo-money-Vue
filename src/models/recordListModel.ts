@@ -9,7 +9,10 @@ const recordListModel = {
     },
     save(data: RecordItem[]) {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
-    }
+    },
+    // clear() {
+    //     localStorage.clear();
+    // }
 };
 
 export {recordListModel};
