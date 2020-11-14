@@ -19,6 +19,7 @@
 
         @Watch('value')
         onValueChanged(value: string) {
+            //叫x:value也可以
             this.$emit('update:value', value);
         }
     }
