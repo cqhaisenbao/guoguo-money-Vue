@@ -4,7 +4,9 @@
         <!--<Types :value="record.type" @update:value="onUpdateType"/>-->
         <!--传给子组件的value的值是record.type，子组件要改的也是record.type，直接value.sync-->
         <Types :value.sync="record.type"/>
+        <div class="notes">
         <FormItem field-name="备注" placeholder="请在这里输入备注" @update:value="onUpdateNotes"/>
+        </div>
         <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     </Layout>
 </template>
@@ -76,5 +78,8 @@
     .layout-content {
         display: flex;
         flex-direction: column-reverse;
+    }
+    .notes{
+        padding: 12px 0;
     }
 </style>
