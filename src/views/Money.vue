@@ -7,7 +7,7 @@
         <div class="notes">
             <FormItem field-name="备注" placeholder="请在这里输入备注" @update:value="onUpdateNotes"/>
         </div>
-        <Tags/>
+        <Tags :value.sync="record.tags"/>
     </Layout>
 </template>
 
@@ -43,7 +43,6 @@
 
         onUpdateNotes(value: string) {
             this.record.notes = value;
-            console.log(this.record.notes);
         }
 
         onUpdateAmount(value: string) {
@@ -52,6 +51,7 @@
 
         saveRecord() {
             store.createRecord(this.record);
+            console.log(this.record);
         }
     }
 </script>

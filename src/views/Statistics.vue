@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        Statistics
+        Statistic
     </Layout>
 </template>
 

@@ -5,8 +5,8 @@
         </div>
         <ul class="current">
             <li v-for="tag in tagList" :key="tag.id"
-            :class="{selected:selectedTags.indexOf(tag)>=0}"
-            @click="toggle(tag)">{{tag.name}}
+                :class="{selected:selectedTags.indexOf(tag)>=0}"
+                @click="toggle(tag)">{{tag.name}}
             </li>
         </ul>
     </div>
@@ -23,11 +23,15 @@
         selectedTags: string[] = [];
 
         toggle(tag: string) {
+            const length = this.selectedTags.length;
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
                 this.selectedTags.splice(index, 1);
             } else {
-                this.selectedTags.push(tag);
+                if (length > 0){
+                    this.selectedTags.pop();
+                }
+                    this.selectedTags.push(tag);
             }
             //update:value叫x也没事，只要和父组件事件名一样就能触发
             this.$emit('update:value', this.selectedTags);
