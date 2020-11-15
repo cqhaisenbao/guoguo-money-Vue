@@ -17,7 +17,6 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
-    import {tagListModel} from '@/models/tagListModel';
     import FormItem from '@/components/Money/FormItem.vue';
     import Button from '@/components/Button.vue';
 
@@ -25,19 +24,14 @@
         components: {Button, FormItem}
     })
     export default class EditLabel extends Vue {
-        tag?: { id: string; name: string } = undefined;
+        //可能有问题
+        tag = window.findTag(this.$route.params.id);
 
         created() {
-            const id = this.$route.params.id;
-            // console.log(id);
-            tagListModel.fetch;
-            const tags = tagListModel.data;
+            const tags = window.tagList;
             console.log(tags);
-            const tag = tags.filter(t => t.id === id)[0];
-            if (tag) {
-                this.tag = tag;
-                console.log(tag);
-            } else {
+            console.log(this.tag);
+            if (!this.tag) {
                 //重定向
                 this.$router.replace('/404');
             }
@@ -45,15 +39,13 @@
 
         update(name: string) {
             if (this.tag) {
-                tagListModel.update(this.tag.id, name);
-                // console.log(name);
-                // console.log(this.tag.id);
+                window.updateTag(this.tag.id, name);
             }
         }
 
         remove() {
             if (this.tag) {
-                if (tagListModel.remove(this.tag.id)) {
+                if (window.removeTag(this.tag.id)) {
                     this.$router.back();
                 }
             }
