@@ -21,18 +21,21 @@
     import Button from '@/components/Button.vue';
 
     @Component({
-        components: {Button, FormItem}
+        components: {Button, FormItem},
     })
     export default class EditLabel extends Vue {
-        tag?: Tag = undefined;
+        get tag(){
+            return this.$store.state.currentTag;
+        }
 
-        // created() {
-        //     this.tag = store.findTag(this.$route.params.id);
-        //     if (!this.tag) {
-        //         //重定向
-        //         this.$router.replace('/404');
-        //     }
-        // }
+        created() {
+            const id = this.$route.params.id;
+            this.$store.commit('setCurrentTag',id);
+            if (!this.tag) {
+                //重定向
+                this.$router.replace('/404');
+            }
+        }
 
         update(name: string) {
             if (this.tag) {
