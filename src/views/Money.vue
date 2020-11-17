@@ -3,7 +3,7 @@
         <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
         <!--<Types :value="record.type" @update:value="onUpdateType"/>-->
         <!--传给子组件的value的值是record.type，子组件要改的也是record.type，直接value.sync-->
-        <Types :value.sync="record.type"/>
+        <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
         <div class="notes">
             <FormItem field-name="备注" placeholder="请在这里输入备注" @update:value="onUpdateNotes"/>
         </div>
@@ -18,6 +18,8 @@
     import Types from '@/components/Money/Types.vue';
     import FormItem from '@/components/Money/FormItem.vue';
     import Tags from '@/components/Money/Tags.vue';
+    import recordTypeList from '@/constants/recordTypeList';
+    import Tabs from '@/components/Tabs.vue';
 
     // const version = window.localStorage.getItem('version') || '0';
     // if (version === '0.0.1') {
@@ -32,12 +34,14 @@
     // window.localStorage.setItem('version', '0.0.2');
 
     @Component({
-        components: {Tags, FormItem, Types, NumberPad},
+        components: {Tabs, Tags, FormItem, Types, NumberPad},
     })
     export default class Money extends Vue {
         get recordList() {
             return this.$store.state.recordList;
         }
+
+        recordTypeList = recordTypeList;
 
         record: RecordItem = {
             tags: [], notes: '', type: '-', amount: 0
