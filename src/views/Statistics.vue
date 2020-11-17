@@ -1,54 +1,44 @@
 <template>
     <Layout>
-        <div class="iconWrapper">
-            <el-button class="icon" @click="drawer = true" type="primary" icon="el-icon-edit" circle></el-button>
-        </div>
-        <el-drawer class="el-drawer" @click="drawer = true"
-                   title="记一笔"
-                   direction="btt"
-                   size="80%"
-                   :wrapperClosable="true"
-                   :withHeader='true'
-                   :show-close='true'
-                   :visible.sync="drawer"
-                   :with-header="false">
-            <EditMoney/>
-        </el-drawer>
-
+        <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
+        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     </Layout>
 </template>
 
-<script>
-    import EditMoney from "@/views/EditMoney";
+<script lang="ts">
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+    import Types from '@/components/Money/Types.vue';
+    import Tabs from '@/components/Tabs.vue';
 
-    export default {
-        name: "Statistics",
-        components: {EditMoney},
-        data() {
-            return {
-                drawer: false,
-            }
-        }
+    @Component({
+        components: {Tabs, Types}
+    })
+    export default class Statistics extends Vue {
+        type = '-';
+        interval = 'day';
+        intervalList = [
+            {text: '按天', value: 'day'},
+            {text: '按周', value: 'week'},
+            {text: '按月', value: 'month'},
+        ];
+        typeList = [
+            {text: '支出', value: '-'},
+            {text: '收入', value: '+'},
+        ];
     }
 </script>
 
-<style>
-    .iconWrapper {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        right: 20px;
-        bottom: 100px;
-    }
+<style lang="scss" scoped>
+    ::v-deep .type-tabs-item {
+        background: white;
 
-    .iconWrapper > .icon {
-        background: #364f6b;
-        border: #364f6b;
-    }
+        &.selected {
+            background: #c4c4c4;
+        }
 
+        &::after {
+            display: none;
+        }
+    }
 </style>
