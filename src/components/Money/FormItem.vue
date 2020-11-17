@@ -14,7 +14,7 @@
     import {Component, Prop} from 'vue-property-decorator';
 
     @Component
-    export default class FormItem extends Vue {
+    export default class  FormItem extends Vue {
         @Prop({default: ''}) value!: string;
 
         @Prop({required: true}) fieldName!: string;
