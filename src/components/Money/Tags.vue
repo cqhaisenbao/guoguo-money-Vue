@@ -17,9 +17,9 @@
     import {Component} from 'vue-property-decorator';
 
     @Component({
-        computed:{
-            tagList(){
-                return []
+        computed: {
+            tagList() {
+                return this.$store.state.tagList;
             }
         }
     })
@@ -29,16 +29,20 @@
         // tagList = store.fetchTags();
         selectedTags: string[] = [];
 
+        created() {
+            this.$store.commit('fetchTags');
+        }
+
         toggle(tag: string) {
             const length = this.selectedTags.length;
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
                 this.selectedTags.splice(index, 1);
             } else {
-                if (length > 0){
+                if (length > 0) {
                     this.selectedTags.pop();
                 }
-                    this.selectedTags.push(tag);
+                this.selectedTags.push(tag);
             }
             //update:value叫x也没事，只要和父组件事件名一样就能触发
             this.$emit('update:value', this.selectedTags);
@@ -47,7 +51,7 @@
         create() {
             const name = window.prompt('请输入标签名');
             if (!name) { return window.alert('标签名不能为空'); }
-            // store.createTag(name);
+            this.$store.commit('createTag', name);
         }
     }
 
@@ -61,6 +65,7 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
+
         > .current {
             display: flex;
             flex-wrap: wrap;
