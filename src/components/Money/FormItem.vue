@@ -3,7 +3,7 @@
         <label class="formItem">
             <span class="name">{{this.fieldName}}</span>
             <!--当input的value等于输入的value，可以用v-model代替-->
-            <input type="text" :value="value" @input="onValueChanged($event.target.value)"
+            <input type="text" :value="value" @change="onValueChanged($event.target.value)"
                    :placeholder="placeholder">
         </label>
     </div>
@@ -22,6 +22,7 @@
 
         onValueChanged(value: string) {
             //叫x:value也可以
+            console.log(value);
             this.$emit('update:value', value);
         }
     }

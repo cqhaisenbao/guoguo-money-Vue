@@ -20,7 +20,6 @@ const store = new Vuex.Store({
     mutations: {
         setCurrentTag(state, id: string) {
             state.currentTag = state.tagList.filter(t => t.id === id)[ 0 ];
-            console.log(state.tagList);
         },
         //当方法需要多个外部参数时，写成一个对象payload:{}
         //eslint-disable-next-line
@@ -55,7 +54,6 @@ const store = new Vuex.Store({
             }
         },
         fetchRecords(state) {
-            console.log('fetchtag执行了');
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
         },
         createRecord(state, record) {
