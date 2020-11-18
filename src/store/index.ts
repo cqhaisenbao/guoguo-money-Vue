@@ -6,11 +6,6 @@ import router from '@/router';
 
 Vue.use(Vuex);
 
-type RootState = {
-    recordList: RecordItem[];
-    tagList: Tag[];
-    currentTag?: Tag;
-}
 const store = new Vuex.Store({
     state: {
         recordList: [],
@@ -19,7 +14,7 @@ const store = new Vuex.Store({
     } as RootState,
     mutations: {
         setCurrentTag(state, id: string) {
-            state.currentTag = state.tagList.filter(t => t.id === id)[ 0 ];
+            state.currentTag = state.tagList.filter(t => t.id === id)[0];
         },
         //当方法需要多个外部参数时，写成一个对象payload:{}
         //eslint-disable-next-line
@@ -31,7 +26,7 @@ const store = new Vuex.Store({
                 if (names.indexOf(name) >= 0) {
                     window.alert('标签名重复了');
                 } else {
-                    const tag = state.tagList.filter(item => item.id === id)[ 0 ];
+                    const tag = state.tagList.filter(item => item.id === id)[0];
                     tag.name = name;
                     store.commit('saveTags');
                 }
@@ -40,7 +35,7 @@ const store = new Vuex.Store({
         removeTag(state, id: string) {
             let index = -1;
             for (let i = 0; i < state.tagList.length; i++) {
-                if (state.tagList[ i ].id === id) {
+                if (state.tagList[i].id === id) {
                     index = i;
                     break;
                 }
@@ -56,9 +51,9 @@ const store = new Vuex.Store({
         fetchRecords(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
         },
-        createRecord(state, record) {
-            const record2: RecordItem = clone(record);
-            record2.createdAt = new Date();
+        createRecord(state, record: RecordItem) {
+            const record2 = clone(record);
+            record2.createdAt = new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords');
         },
@@ -67,7 +62,10 @@ const store = new Vuex.Store({
         },
 
         fetchTags(state) {
-            return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            if (!state.tagList || state.tagList.length === 0) {
+                store.commit('createTag','衣');
+            }
         },
         createTag(state, name: string) {
             const names = state.tagList.map(item => item.name);
