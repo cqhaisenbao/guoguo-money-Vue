@@ -92,6 +92,7 @@
                 &.ok {
                     height: 64*2px;
                     float: right;
+                    color: white;
                 }
 
                 &.zero {
@@ -125,7 +126,7 @@
                 }
 
                 &:nth-child(12) {
-                    background: darken($bg, 4*6%);
+                    background: #ee6f57
                 }
             }
         }
