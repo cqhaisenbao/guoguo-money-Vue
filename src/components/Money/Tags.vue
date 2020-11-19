@@ -19,7 +19,6 @@
 
     @Component
     export default class Tags extends mixins(TagHelper) {
-        // tagList = store.fetchTags();
         selectedTags: string[] = [];
 
         get tagList(){
@@ -32,16 +31,15 @@
 
         toggle(tag: string) {
             const length = this.selectedTags.length;
-            const index = this.selectedTags.indexOf(tag);
-            if (index >= 0) {
-                this.selectedTags.splice(index, 1);
-            } else {
+            // const index = this.selectedTags.indexOf(tag);
+            // if (index >= 0) {
+            //     this.selectedTags.splice(index, 1);
+            // } else {
                 if (length > 0) {
                     this.selectedTags.pop();
                 }
                 this.selectedTags.push(tag);
-            }
-            //update:value叫x也没事，只要和父组件事件名一样就能触发
+            // }
             this.$emit('update:value', this.selectedTags);
         }
     }
