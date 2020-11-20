@@ -126,7 +126,7 @@
                 }
 
                 &:nth-child(12) {
-                    background: #ee6f57
+                    background: #2b2e4a
                 }
             }
         }

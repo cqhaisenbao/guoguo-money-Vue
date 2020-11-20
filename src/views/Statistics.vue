@@ -106,7 +106,6 @@
 
     ::v-deep {
         .type-tabs-item {
-            background: #c4c4c4;
 
             &.selected {
                 background: white;
