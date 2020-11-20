@@ -7,10 +7,9 @@
                 <Icon name="right"/>
             </router-link>
         </div>
-        <div class="createTag-wrapper">
+        <div  class="createTag-wrapper">
             <Button class="createTag" @click="createTag">新建标签</Button>
         </div>
-
     </Layout>
 </template>
 
@@ -19,12 +18,12 @@
     import Button from '@/components/Button.vue';
     import {mixins} from 'vue-class-component';
     import TagHelper from '@/mixins/TagHelper';
+    import SelectedDate from '@/views/SelectedDate.vue';
 
     @Component({
-        components: {Button},
+        components: {SelectedDate, Button},
     })
     export default class Labels extends mixins(TagHelper) {
-        drawer = false;
 
         get tags() {
             return this.$store.state.tagList;
@@ -33,6 +32,7 @@
         created() {
             this.$store.commit('fetchTags');
         }
+
     }
 </script>
 

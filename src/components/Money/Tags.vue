@@ -13,14 +13,20 @@
                 {{tag.name}}
             </li>
             <li>
-                <router-link class="router" to="/labels">
-                    <div>
-                        <Icon name="编辑"/>
-                    </div>
-                    编辑标签
-                </router-link>
+                <div @click="drawer = true">
+                    <Icon name="编辑"/>
+                </div>
+                编辑标签
             </li>
         </ul>
+        <el-drawer
+                title="编辑标签"
+                direction="btt"
+                size="80%"
+                :visible.sync="drawer"
+                :with-header="true">
+            <Labels/>
+        </el-drawer>
     </div>
 </template>
 
@@ -28,11 +34,17 @@
     import {Component} from 'vue-property-decorator';
     import {mixins} from 'vue-class-component';
     import TagHelper from '@/mixins/TagHelper';
+    import EditLabel from '@/views/EditLabel.vue';
+    import Labels from '@/views/Labels.vue';
+    import SelectedDate from '@/views/SelectedDate.vue';
 
-    @Component
+    @Component({
+        components: {SelectedDate, Labels, EditLabel}
+    })
     export default class Tags extends mixins(TagHelper) {
         // tagList = store.fetchTags();
         selectedTags: string[] = [];
+        drawer = false;
 
         get tagList() {
             return this.$store.state.tagList;
@@ -135,6 +147,7 @@
 
                 &.selected {
                     color: #333333;
+
                     .icon {
                         fill: #e84545;
                     }
