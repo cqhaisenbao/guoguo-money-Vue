@@ -21,7 +21,7 @@
         @Prop() placeholder?: string;
 
         onValueChanged(value: string) {
-            //叫x:value也可以
+            //update:value只是一个字符串而已，冒号没有意义
             console.log(value);
             this.$emit('update:value', value);
         }
@@ -34,6 +34,7 @@
         padding-left: 16px;
         display: flex;
         align-items: center;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
         .name {
             padding-right: 16px;
