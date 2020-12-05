@@ -21,6 +21,8 @@
         @Prop() placeholder?: string;
 
         onValueChanged(value: string) {
+            //叫x:value也可以
+            console.log(value);
             this.$emit('update:value', value);
         }
     }

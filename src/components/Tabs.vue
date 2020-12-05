@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tabsWrapper">
         <ul class="tabs" :class="{[classPrefix+'-tabs']:classPrefix}">
             <li v-for="item in dataSource " :key="item.value" class="tabs-item"
                 :class="liClass(item)"
@@ -26,7 +26,7 @@
 
         liClass(item: DataSourceItem) {
             return {
-                [ this.classPrefix + '-tabs-item' ]: this.classPrefix,
+                [this.classPrefix + '-tabs-item']: this.classPrefix,
                 selected: item.value === this.value
             };
         }
@@ -38,29 +38,47 @@
 </script>
 
 <style lang="scss" scoped>
-    .tabs {
-        background: #c4c4c4;
+    .tabsWrapper {
+        background: #2b2e4a;
+        height: 60px;
         display: flex;
-        text-align: center;
-        font-size: 24px;
+        align-items: center;
 
-        &-item {
-            width: 50%;
-            height: 64px;
+        .tabs {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+            width: 40%;
+            margin: 0 auto;
+            border: 1px solid #c4c4c4;
+            border-radius: 5px;
+            border-collapse: collapse;
 
-            &.selected::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 4px;
-                background: #333;
+            li:first-of-type {
+                width: 50%;
+                height: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                border-radius: 4px 0 0 4px;
+            }
+            li:last-of-type {
+                width: 50%;
+                height: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                border-radius: 0 4px 4px 0;
+            }
+
+            & .selected {
+                background: white;
+                color: #2b2e4a;
             }
         }
     }
+
 </style>
