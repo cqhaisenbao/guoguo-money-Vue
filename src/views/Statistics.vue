@@ -32,7 +32,6 @@
     })
     export default class Statistics extends Vue {
         tagString(tags: Tag[]) {
-            console.log(tags);
             if (tags.length === 0) {
                 return '无';
             } else {
@@ -80,7 +79,6 @@
                     result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
                 }
             }
-            console.log(result);
             result.map(group => {
                 group.total = group.items.reduce((sum, item) => {
                     return sum + item.amount;
