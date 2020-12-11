@@ -1,50 +1,59 @@
 <template>
-    <div>
+    <div class="formWrapper">
         <label class="formItem">
-            <span class="name">{{this.fieldName}}</span>
-            <!--当input的value等于输入的value，可以用v-model代替-->
+            <span class="name">{{ this.fieldName }}</span>
             <input type="text" :value="value" @change="onValueChanged($event.target.value)"
                    :placeholder="placeholder">
         </label>
+        <slot></slot>
+        <DataPick/>
     </div>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+import DataPick from "@/components/datePick.vue";
 
-    @Component
-    export default class  FormItem extends Vue {
-        @Prop({default: ''}) value!: string;
+@Component({
+    components: {DataPick}
+})
+export default class FormItem extends Vue {
+    @Prop({default: ''}) value!: string;
 
-        @Prop({required: true}) fieldName!: string;
-        @Prop() placeholder?: string;
+    @Prop({required: true}) fieldName!: string;
+    @Prop() placeholder?: string;
 
-        onValueChanged(value: string) {
-            //叫x:value也可以
-            console.log(value);
-            this.$emit('update:value', value);
-        }
+    onValueChanged(value: string) {
+        //叫x:value也可以
+        this.$emit('update:value', value);
     }
+}
 </script>
 
 <style lang="scss" scoped>
-    .formItem {
-        font-size: 14px;
-        padding-left: 16px;
-        display: flex;
-        align-items: center;
+.formWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .name {
-            padding-right: 16px;
-        }
+.formItem {
+    font-size: 14px;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
 
-        input {
-            height: 40px;
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            padding-right: 16px;
-        }
+    .name {
+        padding-right: 16px;
     }
+
+    input {
+        height: 40px;
+        flex-grow: 1;
+        background: transparent;
+        border: none;
+        padding-right: 16px;
+    }
+}
 </style>
