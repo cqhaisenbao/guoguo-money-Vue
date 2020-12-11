@@ -41,7 +41,7 @@ export default class Money extends Vue {
         this.$store.commit('fetchTags');
     }
 
-    onUpdateTime(value: string) {
+    onUpdateTime(value: Date) {
         this.record.createdAt = value;
     }
 

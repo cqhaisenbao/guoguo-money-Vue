@@ -5,7 +5,7 @@ type RecordItem = {
     notes: string;
     type: string;
     amount: number;
-    createdAt?: string;
+    createdAt?: Date;
 }
 
 type RootState = {

@@ -1,12 +1,12 @@
 <template>
     <div class="formWrapper">
         <div class="formItem">
-            <label >
-            <span class="name">{{ this.fieldName }}</span>
-            <input type="text" :value="value" @change="onValueChanged($event.target.value)"
-                   :placeholder="placeholder">
+            <label>
+                <span class="name">{{ this.fieldName }}</span>
+                <input type="text" :value="value" @change="onValueChanged($event.target.value)"
+                       :placeholder="placeholder">
             </label>
-        <slot></slot>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -39,9 +39,17 @@ export default class FormItem extends Vue {
     padding-left: 16px;
     display: flex;
     align-items: center;
+    label{
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    > div {
+        flex-shrink: 0;
+    }
 
     .name {
-        padding-right: 16px;
     }
 
     input {
@@ -49,7 +57,7 @@ export default class FormItem extends Vue {
         flex-grow: 1;
         background: transparent;
         border: none;
-        padding-right: 16px;
+        margin-left: 10px;
     }
 }
 </style>
