@@ -32,6 +32,7 @@ export default {
         check(value) {
             this.show = false;
             this.now = dayjs(value.toISOString()).format('MM月DD日');
+            this.$emit('timeupdate', this.now);
         },
         showPopup() {
             this.show = !this.show;
@@ -48,6 +49,7 @@ export default {
     border-radius: 20px;
     font-size: 13px;
     font-weight: 600;
+    margin-right: 10px;
 
     span {
         color: #bfbdbd;

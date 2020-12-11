@@ -1,12 +1,14 @@
 <template>
     <div class="formWrapper">
-        <label class="formItem">
+        <div class="formItem">
+            <label >
+
             <span class="name">{{ this.fieldName }}</span>
             <input type="text" :value="value" @change="onValueChanged($event.target.value)"
                    :placeholder="placeholder">
-        </label>
+            </label>
         <slot></slot>
-        <DataPick/>
+        </div>
     </div>
 </template>
 
@@ -32,11 +34,6 @@ export default class FormItem extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.formWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .formItem {
     font-size: 14px;
