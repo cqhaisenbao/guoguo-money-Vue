@@ -21,6 +21,7 @@ import Tags from '@/components/Money/Tags.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 import DataPick from "@/components/datePick.vue";
+import { Toast } from 'vant';
 
 @Component({
     components: {Tabs, Tags, FormItem, NumberPad, DataPick},
@@ -58,7 +59,7 @@ export default class Money extends Vue {
             return window.alert('请选择一个标签');
         }
         this.$store.commit('createRecord', this.record);
-        console.log(this.record);
+        Toast.success('已记一笔');
         this.record.notes = '';
     }
 }
