@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script >
 import {Popup} from 'vant';
 import {DatetimePicker} from 'vant';
 import dayjs from "dayjs";
@@ -32,7 +32,7 @@ export default {
         check(value) {
             this.show = false;
             this.now = dayjs(value.toISOString()).format('MM月DD日');
-            this.$emit('timeupdate', this.now);
+            this.$emit('timeupdate', value);
         },
         showPopup() {
             this.show = !this.show;
