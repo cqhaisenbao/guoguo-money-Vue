@@ -1,10 +1,8 @@
 <template>
     <div>
-        <div @click="showPopup" class="iconWrapper">
-            点我
-        </div>
-        <Popup position="bottom" round v-model="show" :style="{ height: '80%' }">
-            <div>
+        <div @click="showPopup" class="iconWrapper">点我</div>
+        <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
+            <div class="editWrapper">
                 <div class="topWrapper-record">
                     <ul class="record-tabs">
                         <li v-for="item in recordTypeList" :class="liClass(item)" :key="item.value" class="record-tabs-item" @click="select(item)">
@@ -68,9 +66,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.editWrapper{
+    height: 100%;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    .tags{
+        flex-shrink: 0;
+    }
+    .numberPad{
+        flex-shrink: 1;
+    }
+}
 
 .topWrapper-record {
-    margin-top: 20px;
     display: flex;
     padding: 10px 20px;
 

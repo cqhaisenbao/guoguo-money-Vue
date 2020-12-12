@@ -1,6 +1,6 @@
 <template>
     <div class="tags">
-        <div class="new">
+        <div v-if="show" class="new">
             <button @click="createTag">新增标签</button>
         </div>
         <ul class="current">
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 import EditLabel from '@/views/EditLabel.vue';
@@ -38,6 +38,9 @@ export default class Tags extends mixins(TagHelper) {
     // @Prop(String)
     // readonly type!: string;
     //
+    @Prop(String)
+    readonly show!: string;
+
     selectedTags: string[] = [];
     // currentLabel = true;
 
