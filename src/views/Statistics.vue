@@ -2,15 +2,13 @@
     <Layout>
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
         <ol v-if="groupedList.length>0">
-            {{groupedList}}
             <li v-for="(group,index) in groupedList" :key="index">
                 <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
                 <ol>
                     <!--<li v-for="item in group.items" :key="item.id" class="record">-->
-                    <router-link :to="`/labels/edit/${item.id}`" v-for="item in group.items" :key="item.id" class="record">
+                    <router-link :to="`/record/${item.id}`" v-for="item in group.items" :key="item.id" class="record">
                         <span>{{ tagString(item.tags) }}</span>
                         <span class="note">{{ item.notes }}</span>
-                        <span class="note">{{ item.createdAt}}</span>
                         <span>￥{{ item.amount }} </span>
                     </router-link>
                     <!--</li>-->
@@ -64,6 +62,9 @@ export default class Statistics extends Vue {
 
     get groupedList() {
         const {recordList} = this;
+        // const {currentRecord} = this;
+        // currentRecord.amount = 100;
+        // console.log(currentRecord);
         if (recordList.length === 0) {return [];}
         const newList = clone(recordList)
             .filter(r => r.type === this.type)
@@ -91,7 +92,12 @@ export default class Statistics extends Vue {
 
     beforeCreate() {
         this.$store.commit('fetchRecords');
+        // this.$store.commit('setCurrentRecord');
     }
+
+    // get currentRecord() {
+    //     return this.$store.state.currentRecord;
+    // }
 
     type = '-';
     recordTypeList = recordTypeList;

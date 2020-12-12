@@ -8,6 +8,8 @@
         </div>
         <div class="createTag-wrapper">
             <Button class="createTag" @click="createTag">新建标签</Button>
+            <hr>
+            <Button class="createTag" @click="removeLocal">清空缓存</Button>
         </div>
     </Layout>
 </template>
@@ -25,6 +27,10 @@ export default class Labels extends mixins(TagHelper) {
 
     get tags() {
         return this.$store.state.tagList;
+    }
+
+    removeLocal() {
+        window.localStorage.setItem('recordList', '[]');
     }
 
     created() {

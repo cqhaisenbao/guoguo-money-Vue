@@ -10,11 +10,15 @@ const store = new Vuex.Store({
     state: {
         recordList: [],
         tagList: [],
-        currentTag: undefined
+        currentTag: undefined,
+        currentRecord: undefined
     } as RootState,
     mutations: {
         setCurrentTag(state, id: string) {
             state.currentTag = state.tagList.filter(t => t.id === id)[0];
+        },
+        setCurrentRecord(state, id: number) {
+            state.currentRecord = state.recordList.filter(t => t.id === id)[0];
         },
         //当方法需要多个外部参数时，写成一个对象payload:{}
         //eslint-disable-next-line
@@ -43,6 +47,23 @@ const store = new Vuex.Store({
             if (index >= 0) {
                 state.tagList.splice(index, 1);
                 store.commit('saveTags');
+                router.back();
+            } else {
+                window.alert('删除失败');
+            }
+        },
+        removeRecord(state, id: number) {
+            console.log(id);
+            let index = -1;
+            for (let i = 0; i < state.recordList.length; i++) {
+                if (state.recordList[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index >= 0) {
+                state.recordList.splice(index, 1);
+                store.commit('saveRecords');
                 router.back();
             } else {
                 window.alert('删除失败');
