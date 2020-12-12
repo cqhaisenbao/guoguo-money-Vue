@@ -1,13 +1,12 @@
 <template>
     <Layout class-prefix="layout">
         <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
-        <!--传给子组件的value的值是record.type，子组件要改的也是record.type，直接value.sync-->
         <div class="notes">
             <FormItem :value.sync="record.notes" field-name="备注" placeholder="请在这里输入备注">
                 <DataPick @timeupdate="onUpdateTime"/>
             </FormItem>
         </div>
-        <Tags :value.sync="record.tags"/>
+        <Tags :value.sync="record.tags" :type="record.type"/>
         <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     </Layout>
 </template>
@@ -21,7 +20,7 @@ import Tags from '@/components/Money/Tags.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 import DataPick from "@/components/datePick.vue";
-import { Toast } from 'vant';
+import {Toast} from 'vant';
 
 @Component({
     components: {Tabs, Tags, FormItem, NumberPad, DataPick},
@@ -34,7 +33,7 @@ export default class Money extends Vue {
     recordTypeList = recordTypeList;
 
     record: RecordItem = {
-        tags: [], notes: '', type: '-', amount: 0, createdAt: new Date()
+        tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString(), id: 1
     };
 
     created() {
@@ -42,13 +41,13 @@ export default class Money extends Vue {
         this.$store.commit('fetchTags');
     }
 
-    onUpdateTime(value: Date) {
+    onUpdateTime(value: string) {
         this.record.createdAt = value;
     }
 
-    onUpdateNotes(value: string) {
-        this.record.notes = value;
-    }
+    // onUpdateNotes(value: string) {
+    //     this.record.notes = value;
+    // }
 
     onUpdateAmount(value: string) {
         this.record.amount = parseFloat(value);
@@ -58,7 +57,10 @@ export default class Money extends Vue {
         if (!this.record.tags || this.record.tags.length === 0) {
             return window.alert('请选择一个标签');
         }
+        const dateId = Date.parse(this.record.createdAt!);
+        this.record.id = Math.random() + dateId;
         this.$store.commit('createRecord', this.record);
+        console.log(this.record.id);
         Toast.success('已记一笔');
         this.record.notes = '';
     }

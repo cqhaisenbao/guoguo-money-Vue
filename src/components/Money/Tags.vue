@@ -35,10 +35,23 @@ import Labels from '@/views/Labels.vue';
     components: {Labels, EditLabel}
 })
 export default class Tags extends mixins(TagHelper) {
+    // @Prop(String)
+    // readonly type!: string;
+    //
     selectedTags: string[] = [];
+    // currentLabel = true;
+
+    // @Watch('type')
+    // changeLabel() {
+    //     this.currentLabel = this.type === '-';
+    // }
 
     get tagList() {
         return this.$store.state.tagList;
+    }
+
+    get tagIncome() {
+        return this.$store.state.tagIncome;
     }
 
     setName(tag: Tag) {
@@ -65,21 +78,14 @@ export default class Tags extends mixins(TagHelper) {
         }
     }
 
-    created() {
-        this.$store.commit('fetchTags');
-    }
+    created() {this.$store.commit('fetchTags');}
 
     toggle(tag: string) {
         const length = this.selectedTags.length;
-        // const index = this.selectedTags.indexOf(tag);
-        // if (index >= 0) {
-        //     this.selectedTags.splice(index, 1);
-        // } else {
         if (length > 0) {
             this.selectedTags.pop();
         }
         this.selectedTags.push(tag);
-        // }
         this.$emit('update:value', this.selectedTags);
     }
 }
