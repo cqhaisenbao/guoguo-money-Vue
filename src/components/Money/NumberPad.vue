@@ -22,11 +22,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-    output = '0';
+    @Prop({type: String})
+    popOutput!: string;
+
+    output = this.popOutput || '0';
     x = false;
 
     inputContent(event: MouseEvent) {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{currentRecord}}
+        {{ currentRecord.tags[0] }}
         <div @click="showPopup" class="iconWrapper">点我</div>
         <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
             <div class="editWrapper">
@@ -12,11 +12,12 @@
                     </ul>
                     <DataPick/>
                 </div>
-                <Tags/>
+<!--                {{currentRecord}}-->
+                <Tags :selectedTag="currentRecord.tags[0]" :value.sync="currentRecord.tags"/>
                 <div class="notes">
                     <FormItem field-name="备注" placeholder="请在这里输入备注"/>
                 </div>
-                <NumberPad/>
+                <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" :popOutput="currentRecord.amount.toString()"/>
             </div>
         </Popup>
     </div>
@@ -30,24 +31,28 @@ import DataPick from "@/components/datePick.vue";
 import Tags from '@/components/Money/Tags.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Vue from "vue";
-import {Component, Prop} from 'vue-property-decorator';
-// import Button from "@/components/Button";
+import {Component} from 'vue-property-decorator';
 
 @Component({
     components: {Popup, NumberPad, FormItem, DataPick, Tags},
 })
 
 export default class EditLabel extends Vue {
-    // @Prop({type: Object})
-    // popCurrentRecord: RecordItem | undefined;
 
     get currentRecord() {
         return this.$store.state.currentRecord;
     }
 
-    created() {
-        // const id = this.popCurrentRecord!.id;
-        // console.log(id);
+    record: RecordItem = {
+        tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString(), id: 1
+    };
+
+    saveRecord(){
+        console.log(this.currentRecord);
+    }
+
+    onUpdateAmount(value: string) {
+        this.currentRecord.amount = parseFloat(value);
     }
 
     show = false;
@@ -60,13 +65,12 @@ export default class EditLabel extends Vue {
 
     select(item: DataSourceItem) {
         this.selected = item.value;
-        console.log(this.selected);
-        // this.$emit('update:value', item.value);
+        this.currentRecord.type = item.value;
     }
 
     liClass(item: DataSourceItem) {
         return {
-            selected: item.value === this.selected
+            selected: item.value === this.currentRecord.type
         };
     }
 }

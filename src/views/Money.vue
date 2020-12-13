@@ -60,7 +60,6 @@ export default class Money extends Vue {
         const dateId = Date.parse(this.record.createdAt!);
         this.record.id = Math.random() + dateId;
         this.$store.commit('createRecord', this.record);
-        console.log(this.record.id);
         Toast.success('已记一笔');
         this.record.notes = '';
     }
