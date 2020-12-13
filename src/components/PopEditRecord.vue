@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div @click="showPopup" class="iconWrapper">点我</div>
+        <span @click="showPopup" class="iconWrapper">编辑</span>
         <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
             <div class="editWrapper">
                 <div class="topWrapper-record">

@@ -96,6 +96,8 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+
 .noResult {
     padding: 16px;
     text-align: center;
@@ -130,9 +132,6 @@ export default class Statistics extends Vue {
     @extend %item;
 }
 
-//ol {
-//
-//}
 li {
     margin: 10px 5px 0;
     background: #FBFBFB;
@@ -142,15 +141,15 @@ li {
     .record {
         background: #FFFFFF;
         @extend %item;
-        line-height: 30px;
+        line-height: 35px;
         border-bottom: 1px solid #e6e6e6;
         display: flex;
         align-items: center;
 
         .icon {
-            width: 28px;
-            height: 28px;
-            color: #2b2e4a;
+            width: 25px;
+            height: 25px;
+            color: #d68060;
             margin-right: 10px;
         }
 
