@@ -10,7 +10,7 @@
             <Button @click="remove">删除标签</Button>
             <Button>编辑记录</Button>
         </div>
-        <PopEditRecord :currentRecord="currentRecord"/>
+        <PopEditRecord :popCurrentRecord="currentRecord"/>
     </Layout>
 </template>
 

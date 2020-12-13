@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{currentRecord.amount}}
+        {{currentRecord}}
         <div @click="showPopup" class="iconWrapper">点我</div>
         <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
             <div class="editWrapper">
@@ -14,8 +14,7 @@
                 </div>
                 <Tags/>
                 <div class="notes">
-                    <FormItem field-name="备注" placeholder="请在这里输入备注">
-                    </FormItem>
+                    <FormItem field-name="备注" placeholder="请在这里输入备注"/>
                 </div>
                 <NumberPad/>
             </div>
@@ -23,50 +22,54 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import {Popup} from 'vant';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import DataPick from "@/components/datePick.vue";
 import Tags from '@/components/Money/Tags.vue';
-// import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
+import Vue from "vue";
+import {Component, Prop} from 'vue-property-decorator';
+// import Button from "@/components/Button";
 
-export default {
+@Component({
     components: {Popup, NumberPad, FormItem, DataPick, Tags},
-    props: {
-        currentRecord: {
-            type: Object
-        }
-    },
+})
 
-    data: () => {
-        return {
-            show: false,
-            recordTypeList: recordTypeList,
-            selected: '',
-        };
-    },
-    methods: {
-        // check(value) {
-        //     this.show = false;
-        //     this.$emit('timeupdate', value.toISOString());
-        // },
-        showPopup() {
-            this.show = !this.show;
-        },
-        select(item) {
-            this.selected = item.value
-            console.log(this.selected);
-            // this.$emit('update:value', item.value);
-        },
-        liClass(item) {
-            return {
-                selected: item.value === this.selected
-            };
-        }
+export default class EditLabel extends Vue {
+    // @Prop({type: Object})
+    // popCurrentRecord: RecordItem | undefined;
+
+    get currentRecord() {
+        return this.$store.state.currentRecord;
     }
-};
+
+    created() {
+        // const id = this.popCurrentRecord!.id;
+        // console.log(id);
+    }
+
+    show = false;
+    recordTypeList = recordTypeList;
+    selected = '';
+
+    showPopup() {
+        this.show = !this.show;
+    }
+
+    select(item: DataSourceItem) {
+        this.selected = item.value;
+        console.log(this.selected);
+        // this.$emit('update:value', item.value);
+    }
+
+    liClass(item: DataSourceItem) {
+        return {
+            selected: item.value === this.selected
+        };
+    }
+}
 </script>
 
 <style lang="scss" scoped>
