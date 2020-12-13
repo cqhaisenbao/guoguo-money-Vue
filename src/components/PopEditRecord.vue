@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{currentRecord.amount}}
         <div @click="showPopup" class="iconWrapper">点我</div>
         <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
             <div class="editWrapper">
@@ -11,7 +12,6 @@
                     </ul>
                     <DataPick/>
                 </div>
-                <!--<Tabs :data-source="recordTypeList"/>-->
                 <Tags/>
                 <div class="notes">
                     <FormItem field-name="备注" placeholder="请在这里输入备注">
@@ -32,9 +32,13 @@ import Tags from '@/components/Money/Tags.vue';
 // import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 
-
 export default {
     components: {Popup, NumberPad, FormItem, DataPick, Tags},
+    props: {
+        currentRecord: {
+            type: Object
+        }
+    },
 
     data: () => {
         return {
@@ -66,16 +70,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.editWrapper{
+.editWrapper {
     height: 100%;
     padding-top: 10px;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    .tags{
+
+    .tags {
         flex-shrink: 0;
     }
-    .numberPad{
+
+    .numberPad {
         flex-shrink: 1;
     }
 }

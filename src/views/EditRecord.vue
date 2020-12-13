@@ -10,7 +10,7 @@
             <Button @click="remove">删除标签</Button>
             <Button>编辑记录</Button>
         </div>
-        <PopEditRecord/>
+        <PopEditRecord :currentRecord="currentRecord"/>
     </Layout>
 </template>
 
@@ -33,8 +33,6 @@ export default class EditRecord extends Vue {
         this.$store.commit('fetchRecords');
         this.$store.commit('setCurrentRecord', id);
         if (!this.currentRecord) {
-            console.log(this.currentRecord);
-            //重定向
             this.$router.replace('/404');
         }
     }
