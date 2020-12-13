@@ -6,7 +6,7 @@
                 <DataPick @timeupdate="onUpdateTime"/>
             </FormItem>
         </div>
-        <Tags show="true" :value.sync="record.tags" :type="record.type"/>
+        <Tags setname="setName" show="true" :value.sync="record.tags" :type="record.type"/>
         <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     </Layout>
 </template>

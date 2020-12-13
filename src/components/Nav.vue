@@ -39,7 +39,6 @@ nav {
         align-items: center;
         flex-direction: column;
 
-
         .icon {
             width: 28px;
             height: 28px;

@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import {clone} from '@/lib/clone';
 import {createId} from '@/lib/createId';
 import router from '@/router';
+import {Dialog} from 'vant';
 
 Vue.use(Vuex);
 
@@ -12,7 +13,7 @@ const store = new Vuex.Store({
         tagList: [],
         currentTag: undefined,
         currentRecord: undefined,
-        createTagError: null
+        // createTagError: null
     } as RootState,
     mutations: {
         setCurrentTag(state, id: string) {
@@ -21,7 +22,6 @@ const store = new Vuex.Store({
         setCurrentRecord(state, id: number) {
             state.currentRecord = state.recordList.filter(t => t.id === id)[0];
         },
-        //当方法需要多个外部参数时，写成一个对象payload:{}
         //eslint-disable-next-line
         updateTag(state, payload: { id: string, name: string }) {
             const {id, name} = payload;
@@ -107,7 +107,14 @@ const store = new Vuex.Store({
         createTag(state, name: string) {
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
-                state.createTagError=new Error('标签名重复了')
+                // window.alert('标签名重复了')
+                Dialog.alert({
+                    title: '添加失败',
+                    message: '标签名重复了',
+                }).then(() => {
+                    return;
+                });
+                // state.createTagError=new Error('标签名重复了')
                 return;
             } else {
                 const id = createId().toString();
