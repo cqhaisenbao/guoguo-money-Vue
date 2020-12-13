@@ -43,11 +43,6 @@ nav {
         .icon {
             width: 28px;
             height: 28px;
-
-            &.statistics {
-                width: 22px;
-                height: 22px;
-            }
         }
     }
 
