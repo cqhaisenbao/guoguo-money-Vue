@@ -17,9 +17,11 @@ function setName(tag: Tag) {
         return '人情往来';
     } else if (tag.name.toString().indexOf('编辑标签') >= 0) {
         return '编辑';
+    } else if (tag.name.toString().indexOf('工资') >= 0) {
+        return '工资';
     } else {
         return '自定义';
     }
 }
 
-export {setName}
+export {setName};
