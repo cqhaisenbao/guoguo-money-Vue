@@ -36,6 +36,13 @@ const store = new Vuex.Store({
                 }
             }
         },
+        updateRecord(state, payload: RecordItem) {
+            const {id} = payload;
+            let record = state.recordList.filter(item => item.id === id)[0];
+            record = payload;
+            store.commit('saveRecords');
+        },
+
         removeTag(state, id: string) {
             let index = -1;
             for (let i = 0; i < state.tagList.length; i++) {

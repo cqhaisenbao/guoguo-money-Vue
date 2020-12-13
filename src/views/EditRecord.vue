@@ -37,15 +37,6 @@ export default class EditRecord extends Vue {
         }
     }
 
-    //
-    // update(name: string) {
-    //     if (this.currentTag) {
-    //         this.$store.commit('updateTag', {
-    //             id: this.currentTag.id, name:name
-    //         });
-    //     }
-    // }
-    //
     remove() {
         if (this.currentRecord) {
             this.$store.commit('removeRecord', this.currentRecord.id);

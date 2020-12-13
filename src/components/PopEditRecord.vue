@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ currentRecord.tags[0] }}
         <div @click="showPopup" class="iconWrapper">点我</div>
         <Popup position="bottom" round v-model="show" :style="{ height: '85%' }">
             <div class="editWrapper">
@@ -10,12 +9,11 @@
                             {{ item.text }}
                         </li>
                     </ul>
-                    <DataPick/>
+                    <DataPick @timeupdate="onUpdateTime"/>
                 </div>
-<!--                {{currentRecord}}-->
                 <Tags :selectedTag="currentRecord.tags[0]" :value.sync="currentRecord.tags"/>
                 <div class="notes">
-                    <FormItem field-name="备注" placeholder="请在这里输入备注"/>
+                    <FormItem field-name="备注" :placeholder="currentRecord.notes" :value.sync="currentRecord.notes"/>
                 </div>
                 <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" :popOutput="currentRecord.amount.toString()"/>
             </div>
@@ -32,6 +30,7 @@ import Tags from '@/components/Money/Tags.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Vue from "vue";
 import {Component} from 'vue-property-decorator';
+import {Toast} from 'vant';
 
 @Component({
     components: {Popup, NumberPad, FormItem, DataPick, Tags},
@@ -47,12 +46,18 @@ export default class EditLabel extends Vue {
         tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString(), id: 1
     };
 
-    saveRecord(){
-        console.log(this.currentRecord);
+    saveRecord() {
+        this.$store.commit('updateRecord', this.currentRecord);
+        Toast.success('修改成功');
+        this.showPopup();
     }
 
     onUpdateAmount(value: string) {
         this.currentRecord.amount = parseFloat(value);
+    }
+
+    onUpdateTime(value: string) {
+        this.currentRecord.createdAt = value;
     }
 
     show = false;

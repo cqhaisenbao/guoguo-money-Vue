@@ -5,13 +5,12 @@
             <li v-for="(group,index) in groupedList" :key="index">
                 <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
                 <ol>
-                    <!--<li v-for="item in group.items" :key="item.id" class="record">-->
                     <router-link :to="`/record/${item.id}`" v-for="item in group.items" :key="item.id" class="record">
+                        <Icon class="icon" :name="item.tags[0].name"/>
                         <span>{{ tagString(item.tags) }}</span>
                         <span class="note">{{ item.notes }}</span>
                         <span>￥{{ item.amount }} </span>
                     </router-link>
-                    <!--</li>-->
                 </ol>
             </li>
         </ol>
@@ -62,9 +61,6 @@ export default class Statistics extends Vue {
 
     get groupedList() {
         const {recordList} = this;
-        // const {currentRecord} = this;
-        // currentRecord.amount = 100;
-        // console.log(currentRecord);
         if (recordList.length === 0) {return [];}
         const newList = clone(recordList)
             .filter(r => r.type === this.type)
@@ -92,12 +88,7 @@ export default class Statistics extends Vue {
 
     beforeCreate() {
         this.$store.commit('fetchRecords');
-        // this.$store.commit('setCurrentRecord');
     }
-
-    // get currentRecord() {
-    //     return this.$store.state.currentRecord;
-    // }
 
     type = '-';
     recordTypeList = recordTypeList;
@@ -139,14 +130,37 @@ export default class Statistics extends Vue {
     @extend %item;
 }
 
-.record {
-    background: white;
-    @extend %item;
+//ol {
+//
+//}
+li {
+    margin: 10px 5px 0;
+    background: #FBFBFB;
+    border-radius: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+    .record {
+        background: #FFFFFF;
+        @extend %item;
+        line-height: 30px;
+        border-bottom: 1px solid #e6e6e6;
+        display: flex;
+        align-items: center;
+
+        .icon {
+            width: 28px;
+            height: 28px;
+            color: #2b2e4a;
+            margin-right: 10px;
+        }
+
+        .note {
+            margin-right: auto;
+            margin-left: 16px;
+            color: #999;
+        }
+    }
 }
 
-.note {
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999;
-}
+
 </style>
