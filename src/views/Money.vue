@@ -45,10 +45,6 @@ export default class Money extends Vue {
         this.record.createdAt = value;
     }
 
-    // onUpdateNotes(value: string) {
-    //     this.record.notes = value;
-    // }
-
     onUpdateAmount(value: string) {
         this.record.amount = parseFloat(value);
     }

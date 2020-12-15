@@ -21,7 +21,6 @@
                 <span><Icon class="icon" name="record-edit"/><PopEditRecord :popCurrentRecord="currentRecord"/></span>
             </footer>
         </div>
-
     </Layout>
 </template>
 
@@ -126,9 +125,9 @@ export default class EditRecord extends Vue {
             font-size: 18px;
 
             &.span-line {
-                border-right:1px solid rgba(0, 0, 0, 0.1);
+                border-right: 1px solid rgba(0, 0, 0, 0.1);
                 margin-right: 1px;
-                color:rgba(0,0,0,0) ;
+                color: rgba(0, 0, 0, 0);
             }
 
             &:first-child {
