@@ -1,6 +1,6 @@
 <template>
     <Layout class-prefix="layout">
-        <NumberPad :value="record.amount" @update:value="onUpdateAmount" @submit="saveRecord"/>
+        <NumberPad :value="record.amount" :tag.sync="record.tags" @update:value="onUpdateAmount" @submit="saveRecord"/>
         <div class="notes">
             <FormItem :value.sync="record.notes" field-name="备注" placeholder="请在这里输入备注">
                 <DataPick @timeupdate="onUpdateTime"/>

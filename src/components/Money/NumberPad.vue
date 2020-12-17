@@ -28,6 +28,8 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class NumberPad extends Vue {
     @Prop({type: String})
     popOutput!: string;
+    @Prop({type: Array})
+    tag!: [];
 
     output = this.popOutput || '0';
     x = false;
@@ -66,10 +68,14 @@ export default class NumberPad extends Vue {
     }
 
     ok() {
-        const number = parseFloat(this.output);
-        this.$emit('update:value', number);
-        this.$emit('submit', number);
-        this.output = '0';
+        if (this.tag && this.tag.length <= 0) {
+            return window.alert('请选择一个标签');
+        } else {
+            const number = parseFloat(this.output);
+            this.$emit('update:value', number);
+            this.$emit('submit', number);
+            this.output = '0';
+        }
     }
 }
 </script>
